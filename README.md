@@ -26,7 +26,7 @@ We will use a toy model called `Half Plus Two`, which generates `0.5 * x +
 
 1. Update TensorFlow Serving.
 
-First pull the serving image:
+	First pull the serving image:
 
 ```shell
 docker pull tensorflow/serving
@@ -41,18 +41,18 @@ git clone https://github.com/tensorflow/serving
 
 3. Serve a TensorFlow Model
 
-Next, run the TensorFlow Serving container pointing it to this model and opening
+	Next, run the TensorFlow Serving container pointing it to this model and opening
 the REST API port (8501):
 
-```shell
-docker run -p 8501:8501 \
-  --mount type=bind,\
-source=/tmp/tfserving/serving/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,\
-target=/models/half_plus_two \
-  -e MODEL_NAME=half_plus_two -t tensorflow/serving &
-```
+	```shell
+	docker run -p 8501:8501 \
+	  --mount type=bind,\
+	source=/tmp/tfserving/serving/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,\
+	target=/models/half_plus_two \
+	  -e MODEL_NAME=half_plus_two -t tensorflow/serving &
+	```
 
-This will run the docker container and launch the TensorFlow Serving Model
+	This will run the docker container and launch the TensorFlow Serving Model
 Server, bind the REST API port 8501, and map our desired model from our host to
 where models are expected in the container. We also pass the name of the model
 as an environment variable, which will be important when we query the model.
@@ -62,7 +62,7 @@ as an environment variable, which will be important when we query the model.
 To query the model using the predict API, you can run
 
 ```shell
-curl -d '{"instances": [1.0, 2.0, 5.0]}' \
+curl -d '{"instances": [0.0, 1.0, 2.0]}' \
   -X POST http://localhost:8501/v1/models/half_plus_two:predict
 ```
 
@@ -75,11 +75,23 @@ python send_request.py
 This should return a set of values:
 
 ```json
-{ "predictions": [2.5, 3.0, 4.5] }
+{ "predictions": [2.0, 2.5, 3.0] }
 ```
 #### With ModelServer :
 
-We also can run only one command with the following command:
+If you are currently running the server, first you need to turn it off. 
+
+```bash
+fuser -k 8501/tcp
+```
+
+And check whether the port is really turned off:
+
+```bash
+lsof -i -P -n | grep LISTEN
+```
+
+If the port is turned off, we'll serve the model by running only one command like this:
 
 ```shell
 tensorflow_model_server --port=8500 --rest_api_port=8501 --model_name=haf_plus_two      
