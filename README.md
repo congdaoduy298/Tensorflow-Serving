@@ -209,15 +209,15 @@ It will load version 123 of the half_plus_two model. If model_version_policy not
 
 ### 4. Serving an object detection model
 
-I download SSD ResNet101 V1 FPN 640x640 (RetinaNet101) from [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
+I use SSD ResNet101 V1 FPN 640x640 (RetinaNet101) model from [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
 
-First, check SignatureDefs of the model:
+First, check `SignatureDefs` of the model:
 
 ```bash
 !saved_model_cli show --dir /home/user/Desktop/TF-ServingOD/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model/1 --all
 ```
 
-`--dir` Path of saved_model.pb and variables folder.
+`--dir` Path of `saved_model.pb` and `variables` folder.
 
 You will see the following result:
 
@@ -288,13 +288,13 @@ python send_detection_request.py
 
 To write logs into a text file, you need :
 
-- Set environment variable TF_CPP_VMODULE.
+- Set environment variable `TF_CPP_VMODULE`.
 
 ```bash
 export TF_CPP_VMODULE=http_server=1
 ```
 
-- Run tensorflow_model_server with write file command.
+- Run `tensorflow_model_server` with write file command.
 
 ```bash
 tensorflow_model_server --rest_api_port=8501 --model_config_file=models.conf &> log &
