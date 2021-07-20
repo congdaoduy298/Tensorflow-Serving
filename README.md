@@ -59,24 +59,24 @@ as an environment variable, which will be important when we query the model.
 
 4. Get predictions from a model
 
-To query the model using the predict API, you can run
+	To query the model using the predict API, you can run
 
-```shell
-curl -d '{"instances": [0.0, 1.0, 2.0]}' \
-  -X POST http://localhost:8501/v1/models/half_plus_two:predict
-```
+	```shell
+	curl -d '{"instances": [0.0, 1.0, 2.0]}' \
+	  -X POST http://localhost:8501/v1/models/half_plus_two:predict
+	```
 
-To get a prediction by [python file](send_request.py), you run this:
+	To get a prediction by [python file](send_request.py), you run this:
 
-```python
-python send_request.py
-```
+	```python
+	python send_request.py
+	```
 
-This should return a set of values:
+	This should return a set of values:
 
-```json
-{ "predictions": [2.0, 2.5, 3.0] }
-```
+	```json
+	{ "predictions": [2.0, 2.5, 3.0] }
+	```
 #### With ModelServer :
 
 If you are currently running the server, first you need to turn it off. 
@@ -101,7 +101,7 @@ tensorflow_model_server --port=8500 --rest_api_port=8501 --model_name=haf_plus_t
 After you execute the tensorflow_model_server command above, ModelServer runs on your host, listening for inference requests. You can [get 
 predictions](#4get_predictions_from_a_model). 
 
-Arguments: 
+##### Arguments: 
 ```
     --port=8500                         TCP port to listen on for gRPC/HTTP API. Disabled if port set to zero.
 
