@@ -300,5 +300,9 @@ export TF_CPP_VMODULE=http_server=1
 tensorflow_model_server --rest_api_port=8501 --model_config_file=models.conf &> log &
 ```
 
+## IV. REFERENCES
 
+[TensorFlow Serving](https://github.com/tensorflow/serving)
+
+[ [Model Serving] Triển khai Machine Learning model lên production với Tensorflow Serving - Deploy Machine Learning model in production with Tensorflow Serving ](https://viblo.asia/p/model-serving-trien-khai-machine-learning-model-len-production-voi-tensorflow-serving-deploy-machine-learning-model-in-production-with-tensorflow-serving-XL6lAvvN5ek)
 
